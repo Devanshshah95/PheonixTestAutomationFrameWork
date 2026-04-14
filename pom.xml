@@ -2,7 +2,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>PheonixAutomationFramework</groupId>
 	<artifactId>PheonixAutomationFramework</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -12,10 +11,27 @@
 	<properties>
 		<maven.compiler.source>14</maven.compiler.source>
 		<maven.compiler.target>14</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-	<dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.2.5</version>
+				<configuration>
+					<useSystemClassLoader>false</useSystemClassLoader>
+					<forkedProcessTimeoutInSeconds>60</forkedProcessTimeoutInSeconds>
+					<suiteXmlFiles>
+						<suiteXmlFile>src/test/resources/suites/${suiteFile}</suiteXmlFile>
+					</suiteXmlFiles>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
+	<dependencies>
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
@@ -23,14 +39,11 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--
-		https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.18.2</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>io.rest-assured</groupId>
@@ -45,7 +58,5 @@
 			<version>7.11.0</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
-
 </project>
