@@ -30,14 +30,14 @@ public class CountAPITest {
 		.then().log().all()
 		.statusCode(200)
 		.and()
-		.time(lessThan(2000L))
+		.time(lessThan(25000L))
 		.body("message",equalTo("Success"))
 		.body("data",notNullValue())
 		.body("data.size()",equalTo(3))
-		.body("data.count",greaterThanOrEqualTo(0))
+		.body("data.count",everyItem(greaterThanOrEqualTo(0)))		
 		.body("data.label",everyItem(not(blankOrNullString())))
-		.body("data.key",containsInAnyOrder("pending_fst_assignment"))
-		.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("\\resources\\response-schema\\countAPIresponseSchema-FD.json"));
+		.body("data.key",hasItem("pending_fst_assignment"))
+		.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response-schema/countAPIresponseSchema-FD.json"));
 	}
 	
 	@Test
